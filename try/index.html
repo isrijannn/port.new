@@ -148,12 +148,13 @@
                     <a href="images/my-cv.pdf" downlode class="btn btn2">downlode cv</a>
                 </div>
                 <div class="contact-right">
-                    <form>
-                        <input type="text" name="name" placeholder="your name" required>
+                    <form name="submit-to-google-sheet">
+                        <input type="text" name="namee" placeholder="your name" required>
                         <input type="email" name="email" placeholder="your email" required>
                         <textarea name="massage"   rows="6" placeholder="your message"></textarea>
                         <button type="submit" class="btn btn2">submit</button>
                     </form>
+                    <span id="msg"></span>
                 </div>
             </div>
             <div class="copyright">
@@ -185,6 +186,23 @@
         function closemenu(){
             sidemenu.style.right = "-125px"
         }
+    </script>
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbz5SM9q20BYJ8D1N13poNvEjLA__SBlwrvFQbhK-VwROauQep67B2lCOiVO5Luvbov0WQ/exec'
+  const form = document.forms['submit-to-google-sheet']
+  const msg = document.getElementById("msg")
+
+  form.addEventListener('submit', e => {
+    e.preventDefault()
+    fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+      .then(response => {msg.innerHTML = "massage send successfully"
+    setTimeout(function(){
+        msg.innerHTML =""
+    },5000) 
+form.reset()})
+      .catch(error => console.error('Error!', error.message))
+  })
+
     </script>
     
 </body>
